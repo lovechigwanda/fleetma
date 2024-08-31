@@ -244,6 +244,8 @@ app_license = "mit"
 
 
 
-# CREATE TRIP WORKFLOW AFTER APP INSTALLATION : FOR TRIP DOCTYPE
-after_install = "fleetma.fixtures.workflow.create_trip_workflow"
+
+#CREATE WORKFLOW FROM JSON FILE :FOR TRIP DOCTYPE
+fixtures = ["Workflow"]
+
 
