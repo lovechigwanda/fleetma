@@ -242,3 +242,8 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+
+
+# CREATE TRIP WORKFLOW AFTER APP INSTALLATION : FOR TRIP DOCTYPE
+after_install = "fleetma.fixtures.workflow.create_trip_workflow"
+

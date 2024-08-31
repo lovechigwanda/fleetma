@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{origin}-{destination}-{turn_in}",
+ "creation": "2024-08-21 22:47:46.920750",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "origin",
+  "column_break_oqst",
+  "destination",
+  "column_break_emgv",
+  "turn_in",
+  "section_break_mnow",
+  "route_type",
+  "column_break_ykdb",
+  "distance_loaded",
+  "column_break_kccp",
+  "distance_empty"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "origin",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Origin",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_oqst",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "destination",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Destination",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_emgv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "turn_in",
+   "fieldtype": "Data",
+   "label": "Turn In",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_break_mnow",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "route_type",
+   "fieldtype": "Select",
+   "in_filter": 1,
+   "label": "Route Type",
+   "options": "Export\nImport\nTransit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ykdb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "distance_loaded",
+   "fieldtype": "Int",
+   "label": "Distance Loaded",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_kccp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "distance_empty",
+   "fieldtype": "Int",
+   "label": "Distance Empty",
+   "non_negative": 1,
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-08-24 18:36:45.074107",
+ "modified_by": "Administrator",
+ "module": "Trucking Service",
+ "name": "Route",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

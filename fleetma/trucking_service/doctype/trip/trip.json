@@ -1,0 +1,436 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:TRP-{#####}-{YY}",
+ "creation": "2024-08-21 23:05:29.383263",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "truck_driver_details_section",
+  "horse",
+  "driver",
+  "column_break_igsl",
+  "trailer",
+  "driver_full_name",
+  "column_break_gphh",
+  "date_created",
+  "company",
+  "customer_details_section",
+  "customer",
+  "customer_reference",
+  "column_break_bcii",
+  "consignee",
+  "consignee_reference",
+  "column_break_yspb",
+  "section_break_iw6x",
+  "amended_from",
+  "route_details",
+  "route_details_section",
+  "route",
+  "route_type",
+  "loading_address",
+  "column_break_eqwa",
+  "distance_loaded",
+  "extra_distance_loaded",
+  "loading_instructions",
+  "column_break_juyn",
+  "distance_empty",
+  "extra_distance_empty",
+  "offloading_address",
+  "cargo_details",
+  "cargo_details_section",
+  "cargo_description",
+  "container_number",
+  "last_pick_up_date",
+  "column_break_gelo",
+  "cargo_type",
+  "container_size",
+  "last_drop_off_date",
+  "column_break_utgu",
+  "border_reference",
+  "seal_number",
+  "charges_details",
+  "revenue_charges",
+  "section_break_kjly",
+  "cost_charges",
+  "section_break_ncmx",
+  "total_revenue",
+  "column_break_fbkp",
+  "total_cost",
+  "column_break_lyhn",
+  "estimated_profit",
+  "tracking_tab",
+  "tracking_update_section",
+  "tracking_update",
+  "current_update_section",
+  "current_trip_status",
+  "column_break_lgag",
+  "current_update_comment"
+ ],
+ "fields": [
+  {
+   "fieldname": "truck_driver_details_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "horse",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Horse",
+   "link_filters": "[[\"Vehicle\",\"custom_is_horse\",\"=\",1]]",
+   "options": "Vehicle",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Driver",
+   "options": "Driver",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_igsl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trailer",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Trailer",
+   "link_filters": "[[\"Vehicle\",\"custom_is_trailer\",\"=\",1]]",
+   "options": "Vehicle",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "driver.full_name",
+   "fieldname": "driver_full_name",
+   "fieldtype": "Read Only",
+   "label": "Driver Full Name"
+  },
+  {
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer_reference",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Customer Reference"
+  },
+  {
+   "fieldname": "column_break_bcii",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignee",
+   "fieldtype": "Link",
+   "label": "Consignee",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "consignee_reference",
+   "fieldtype": "Data",
+   "label": "Consignee Reference"
+  },
+  {
+   "fieldname": "section_break_iw6x",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Trip",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "route_details",
+   "fieldtype": "Tab Break",
+   "label": "Route"
+  },
+  {
+   "fieldname": "route_details_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Route",
+   "options": "Route"
+  },
+  {
+   "fetch_from": "route.route_type",
+   "fieldname": "route_type",
+   "fieldtype": "Read Only",
+   "label": "Route Type"
+  },
+  {
+   "fieldname": "loading_address",
+   "fieldtype": "Small Text",
+   "label": "Loading Addresss"
+  },
+  {
+   "fieldname": "column_break_eqwa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "route.distance_loaded",
+   "fieldname": "distance_loaded",
+   "fieldtype": "Read Only",
+   "label": "Distance Loaded"
+  },
+  {
+   "fieldname": "extra_distance_loaded",
+   "fieldtype": "Int",
+   "label": "Exta Distance Loaded",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "loading_instructions",
+   "fieldtype": "Small Text",
+   "label": "Loading Instructions"
+  },
+  {
+   "fieldname": "column_break_juyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "route.distance_empty",
+   "fieldname": "distance_empty",
+   "fieldtype": "Read Only",
+   "label": "Distance Empty"
+  },
+  {
+   "fieldname": "extra_distance_empty",
+   "fieldtype": "Int",
+   "label": "Extra Distance Empty",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "offloading_address",
+   "fieldtype": "Small Text",
+   "label": "Offloading Address"
+  },
+  {
+   "fieldname": "cargo_details",
+   "fieldtype": "Tab Break",
+   "label": "Cargo"
+  },
+  {
+   "fieldname": "cargo_details_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cargo_description",
+   "fieldtype": "Data",
+   "label": "Cargo Description"
+  },
+  {
+   "fieldname": "border_reference",
+   "fieldtype": "Data",
+   "label": "Border Reference"
+  },
+  {
+   "fieldname": "column_break_gelo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cargo_type",
+   "fieldtype": "Select",
+   "label": "Cargo Type",
+   "options": "\nContainerised\nBulk\nLoose\nOther"
+  },
+  {
+   "depends_on": "eval:doc.cargo_type==\"Containerised\"",
+   "fieldname": "seal_number",
+   "fieldtype": "Data",
+   "label": "Seal Number"
+  },
+  {
+   "fieldname": "column_break_utgu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.cargo_type==\"Containerised\"",
+   "fieldname": "container_size",
+   "fieldtype": "Select",
+   "label": "Container Size",
+   "options": "\n20ft\n40ft\nOther"
+  },
+  {
+   "depends_on": "eval:doc.cargo_type==\"Containerised\"",
+   "fieldname": "container_number",
+   "fieldtype": "Data",
+   "label": "Container Number"
+  },
+  {
+   "fieldname": "charges_details",
+   "fieldtype": "Tab Break",
+   "label": "Charges"
+  },
+  {
+   "fieldname": "section_break_kjly",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cost_charges",
+   "fieldtype": "Table",
+   "label": "Cost Charges",
+   "options": "Cost Charges"
+  },
+  {
+   "fieldname": "section_break_ncmx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_revenue",
+   "fieldtype": "Currency",
+   "label": "Total Revenue",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fbkp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "label": "Total Cost",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_lyhn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "estimated_profit",
+   "fieldtype": "Currency",
+   "label": "Estimated Profit",
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fieldname": "revenue_charges",
+   "fieldtype": "Table",
+   "label": "Revenue Charges",
+   "options": "Revenue Charges"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date_created",
+   "fieldtype": "Date",
+   "label": "Date Created"
+  },
+  {
+   "fieldname": "column_break_gphh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_yspb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_drop_off_date",
+   "fieldtype": "Date",
+   "label": "Last Drop-Off Date"
+  },
+  {
+   "fieldname": "last_pick_up_date",
+   "fieldtype": "Date",
+   "label": "Last Pick-Up Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "print_hide": 1,
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "tracking_tab",
+   "fieldtype": "Tab Break",
+   "label": "Tracking"
+  },
+  {
+   "fieldname": "tracking_update",
+   "fieldtype": "Table",
+   "label": "Tracking Update",
+   "options": "Tracking Update"
+  },
+  {
+   "fieldname": "current_trip_status",
+   "fieldtype": "Data",
+   "label": "Current Trip Status"
+  },
+  {
+   "fieldname": "current_update_comment",
+   "fieldtype": "Data",
+   "label": "Current Update Comment"
+  },
+  {
+   "fieldname": "tracking_update_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "current_update_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_lgag",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-08-31 18:15:14.283343",
+ "modified_by": "Administrator",
+ "module": "Trucking Service",
+ "name": "Trip",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
