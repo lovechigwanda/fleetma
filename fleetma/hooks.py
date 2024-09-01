@@ -252,3 +252,7 @@ fixtures = ["Workflow"]
 fixtures = [
     {"dt": "Custom Field", "filters": [["name", "in", ["Vehicle-custom_is_horse", "Vehicle-custom_is_trailer"]]]}
 ]
+
+fixtures = [
+    {"dt": "Workflow State"}
+]
