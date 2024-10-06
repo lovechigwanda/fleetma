@@ -135,7 +135,8 @@ frappe.ui.form.on('Trip', {
                             quantity: charge.quantity,
                             amount: charge.amount,
                             description: charge.charge_description,
-                            receivable_party: charge.receivable_party
+                            receivable_party: charge.receivable_party,
+                            revenue_charge_name: charge.name  // Capture the name of the revenue charge
                         }));
                     });
                 });
@@ -183,7 +184,8 @@ frappe.ui.form.on('Trip', {
                                 item_code: trip.charge,
                                 qty: trip.quantity,
                                 rate: trip.amount,
-                                description: trip.description
+                                description: trip.description,
+                                custom_trip_reference: trip.trip_name,
                             }));
 
                             frappe.call({
@@ -197,7 +199,25 @@ frappe.ui.form.on('Trip', {
                                 },
                                 callback: function(response) {
                                     if (response.message) {
-                                        frappe.msgprint(__('Sales Invoice created successfully'));
+                                        let sales_invoice_name = response.message.name;
+
+                                        // Update the revenue_charges table with the invoice number
+                                        let updatePromises = selected_trips.map(trip => {
+                                            return frappe.call({
+                                                method: 'frappe.client.set_value',
+                                                args: {
+                                                    doctype: 'Revenue Charges',
+                                                    name: trip.revenue_charge_name,
+                                                    fieldname: 'invoice_number',
+                                                    value: sales_invoice_name
+                                                }
+                                            });
+                                        });
+
+                                        Promise.all(updatePromises).then(() => {
+                                            // Open the Sales Invoice for further editing
+                                            frappe.set_route('Form', 'Sales Invoice', sales_invoice_name);
+                                        });
                                     }
                                 }
                             });
@@ -211,7 +231,3 @@ frappe.ui.form.on('Trip', {
         }, __('Create'));
     }
 });
-
-
-
-
