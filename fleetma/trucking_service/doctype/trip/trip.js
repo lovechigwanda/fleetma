@@ -133,7 +133,9 @@ frappe.ui.form.on('Trip', {
                             trip_name: tripDoc.name,
                             charge: charge.charge,
                             quantity: charge.quantity,
-                            amount: charge.amount
+                            amount: charge.amount,
+                            description: charge.charge_description,
+                            receivable_party: charge.receivable_party
                         }));
                     });
                 });
@@ -146,12 +148,25 @@ frappe.ui.form.on('Trip', {
                         size: 'large',
                         fields: [
                             {
+                                fieldtype: 'Link',
+                                fieldname: 'receivable_party_filter',
+                                label: 'Receivable Party',
+                                options: 'Customer',
+                                onchange: function() {
+                                    let receivable_party = dialog.get_value('receivable_party_filter');
+                                    let filtered_trips = formatted_trips.filter(trip => trip.receivable_party === receivable_party);
+                                    dialog.fields_dict.trips.df.data = filtered_trips;
+                                    dialog.fields_dict.trips.grid.refresh();
+                                }
+                            },
+                            {
                                 fieldtype: 'Table',
                                 fieldname: 'trips',
                                 label: 'Trips',
                                 fields: [
-                                    {fieldtype: 'Data', fieldname: 'trip_name', label: 'Trip Name', read_only: 1, in_list_view: 1, columns: 3},
-                                    {fieldtype: 'Data', fieldname: 'charge', label: 'Charge', read_only: 1, in_list_view: 1, columns: 4},
+                                    {fieldtype: 'Data', fieldname: 'trip_name', label: 'Trip Name', read_only: 1, in_list_view: 1, columns: 2},
+                                    {fieldtype: 'Data', fieldname: 'charge', label: 'Charge', read_only: 1, in_list_view: 1, columns: 2},
+                                    {fieldtype: 'Data', fieldname: 'description', label: 'Description', read_only: 1, in_list_view: 1, columns: 3},
                                     {fieldtype: 'Int', fieldname: 'quantity', label: 'Qty', read_only: 1, in_list_view: 1, columns: 1},
                                     {fieldtype: 'Currency', fieldname: 'amount', label: 'Amount', read_only: 1, in_list_view: 1, columns: 2}
                                 ],
@@ -161,8 +176,32 @@ frappe.ui.form.on('Trip', {
                         ],
                         primary_action_label: 'Create Invoice',
                         primary_action: function(data) {
-                            console.log(data.trips);
-                            // Add your logic to create an invoice using the selected trips
+                            let selected_trips = data.trips;
+                            let receivable_party = dialog.get_value('receivable_party_filter');
+
+                            let items = selected_trips.map(trip => ({
+                                item_code: trip.charge,
+                                qty: trip.quantity,
+                                rate: trip.amount,
+                                description: trip.description
+                            }));
+
+                            frappe.call({
+                                method: 'frappe.client.insert',
+                                args: {
+                                    doc: {
+                                        doctype: 'Sales Invoice',
+                                        customer: receivable_party,
+                                        items: items
+                                    }
+                                },
+                                callback: function(response) {
+                                    if (response.message) {
+                                        frappe.msgprint(__('Sales Invoice created successfully'));
+                                    }
+                                }
+                            });
+
                             dialog.hide();
                         }
                     });
@@ -172,6 +211,7 @@ frappe.ui.form.on('Trip', {
         }, __('Create'));
     }
 });
+
 
 
 
