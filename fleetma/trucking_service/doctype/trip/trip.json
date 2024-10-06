@@ -63,9 +63,12 @@
   "tracking_update_section",
   "tracking_update",
   "current_update_section",
-  "current_trip_status",
+  "current_trip_milestone",
   "column_break_lgag",
-  "current_update_comment"
+  "current_update_comment",
+  "column_break_zeuu",
+  "updated_on",
+  "connections_tab"
  ],
  "fields": [
   {
@@ -121,7 +124,8 @@
    "in_filter": 1,
    "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "customer_reference",
@@ -173,6 +177,7 @@
    "fieldtype": "Link",
    "in_filter": 1,
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Route",
    "options": "Route"
   },
@@ -279,7 +284,8 @@
    "depends_on": "eval:doc.cargo_type==\"Containerised\"",
    "fieldname": "container_number",
    "fieldtype": "Data",
-   "label": "Container Number"
+   "label": "Container Number",
+   "mandatory_depends_on": "eval:doc.cargo_type==\"Containerised\""
   },
   {
    "fieldname": "charges_details",
@@ -342,6 +348,9 @@
    "default": "Today",
    "fieldname": "date_created",
    "fieldtype": "Date",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Date Created"
   },
   {
@@ -355,12 +364,14 @@
   {
    "fieldname": "last_drop_off_date",
    "fieldtype": "Date",
-   "label": "Last Drop-Off Date"
+   "label": "Last Drop-Off Date",
+   "mandatory_depends_on": "eval:doc.cargo_type==\"Containerised\""
   },
   {
    "fieldname": "last_pick_up_date",
    "fieldtype": "Date",
-   "label": "Last Pick-Up Date"
+   "label": "Last Pick-Up Date",
+   "mandatory_depends_on": "eval:doc.cargo_type==\"Containerised\""
   },
   {
    "fieldname": "company",
@@ -381,17 +392,14 @@
    "fieldname": "tracking_update",
    "fieldtype": "Table",
    "label": "Tracking Update",
+   "mandatory_depends_on": "eval:doc.current_trip_status==\"In Transit\"",
    "options": "Tracking Update"
-  },
-  {
-   "fieldname": "current_trip_status",
-   "fieldtype": "Data",
-   "label": "Current Trip Status"
   },
   {
    "fieldname": "current_update_comment",
    "fieldtype": "Data",
-   "label": "Current Update Comment"
+   "label": "Current Update Comment",
+   "read_only": 1
   },
   {
    "fieldname": "tracking_update_section",
@@ -404,12 +412,39 @@
   {
    "fieldname": "column_break_lgag",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "connections_tab",
+   "fieldtype": "Tab Break",
+   "label": "Connections",
+   "show_dashboard": 1
+  },
+  {
+   "fieldname": "current_trip_milestone",
+   "fieldtype": "Data",
+   "label": "Current Trip Milestone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_zeuu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "updated_on",
+   "fieldtype": "Date",
+   "label": "Updated On",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-08-31 18:15:14.283343",
+ "links": [
+  {
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "customer"
+  }
+ ],
+ "modified": "2024-10-05 19:17:03.306866",
  "modified_by": "Administrator",
  "module": "Trucking Service",
  "name": "Trip",

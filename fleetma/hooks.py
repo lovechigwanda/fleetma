@@ -245,7 +245,8 @@ app_license = "mit"
 
 
 
-#CREATE WORKFLOW FROM JSON FILE :FOR TRIP DOCTYPE
+#CREATE WORKFLOW, WORKFLOW STATES AND CUSTOM FIELDS FROM FIXTURES JSON FILES
+
 fixtures = ["Workflow"]
 
 
@@ -254,5 +255,4 @@ fixtures = [
 ]
 
 fixtures = [
-    {"dt": "Workflow State"}
-]
+    {"dt": "Workflow State"}]

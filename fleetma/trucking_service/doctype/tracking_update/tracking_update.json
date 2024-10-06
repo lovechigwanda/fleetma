@@ -7,16 +7,11 @@
  "engine": "InnoDB",
  "field_order": [
   "update_date",
-  "trip_status",
+  "trip_milestone",
   "update_comment",
   "updated_by"
  ],
  "fields": [
-  {
-   "fieldname": "trip_status",
-   "fieldtype": "Read Only",
-   "label": "Trip Status"
-  },
   {
    "default": "Now",
    "fieldname": "update_date",
@@ -38,12 +33,20 @@
    "label": "Updated By",
    "options": "User",
    "read_only": 1
+  },
+  {
+   "fieldname": "trip_milestone",
+   "fieldtype": "Link",
+   "label": "Trip Milestone",
+   "options": "Trip Milestones",
+   "reqd": 1,
+   "set_only_once": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-08-29 17:22:00.826433",
+ "modified": "2024-09-29 22:15:06.925326",
  "modified_by": "Administrator",
  "module": "Trucking Service",
  "name": "Tracking Update",

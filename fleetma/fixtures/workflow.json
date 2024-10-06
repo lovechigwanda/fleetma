@@ -4,7 +4,7 @@
   "doctype": "Workflow",
   "document_type": "Trip",
   "is_active": 1,
-  "modified": "2024-08-31 19:55:46.509042",
+  "modified": "2024-09-01 16:43:55.004724",
   "name": "Trip Workflow",
   "override_status": 0,
   "send_email_alert": 0,
@@ -19,9 +19,9 @@
     "parent": "Trip Workflow",
     "parentfield": "states",
     "parenttype": "Workflow",
-    "state": "To Load",
+    "state": "Loading",
     "update_field": "current_trip_status",
-    "update_value": "To Load",
+    "update_value": "Loading",
     "workflow_builder_id": null
    },
    {
@@ -49,9 +49,39 @@
     "parent": "Trip Workflow",
     "parentfield": "states",
     "parenttype": "Workflow",
-    "state": "Completing",
+    "state": "Offloading",
     "update_field": "current_trip_status",
-    "update_value": "Completing",
+    "update_value": "Offloading",
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "avoid_status_override": 0,
+    "doc_status": "0",
+    "is_optional_state": 1,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Trip Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Return Empty",
+    "update_field": "current_trip_status",
+    "update_value": "Return Empty",
+    "workflow_builder_id": null
+   },
+   {
+    "allow_edit": "All",
+    "avoid_status_override": 0,
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Trip Workflow",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Completed",
+    "update_field": "current_trip_status",
+    "update_value": "Completed",
     "workflow_builder_id": null
    },
    {
@@ -70,7 +100,7 @@
     "workflow_builder_id": null
    },
    {
-    "allow_edit": "Administrator",
+    "allow_edit": "All",
     "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
@@ -90,12 +120,12 @@
     "action": "Mark As In Transit",
     "allow_self_approval": 1,
     "allowed": "All",
-    "condition": "doc.total_revenue > 0\n",
+    "condition": "",
     "next_state": "In transit",
     "parent": "Trip Workflow",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "To Load",
+    "state": "Loading",
     "workflow_builder_id": null
    },
    {
@@ -103,11 +133,35 @@
     "allow_self_approval": 1,
     "allowed": "All",
     "condition": null,
-    "next_state": "Completing",
+    "next_state": "Offloading",
     "parent": "Trip Workflow",
     "parentfield": "transitions",
     "parenttype": "Workflow",
     "state": "In transit",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Mark As Offloading",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Return Empty",
+    "parent": "Trip Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Offloading",
+    "workflow_builder_id": null
+   },
+   {
+    "action": "Mark As Returning Empty",
+    "allow_self_approval": 1,
+    "allowed": "All",
+    "condition": null,
+    "next_state": "Completed",
+    "parent": "Trip Workflow",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Return Empty",
     "workflow_builder_id": null
    },
    {
@@ -119,7 +173,7 @@
     "parent": "Trip Workflow",
     "parentfield": "transitions",
     "parenttype": "Workflow",
-    "state": "Completing",
+    "state": "Completed",
     "workflow_builder_id": null
    },
    {

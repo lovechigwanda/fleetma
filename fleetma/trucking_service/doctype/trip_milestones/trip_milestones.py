@@ -5,10 +5,5 @@
 from frappe.model.document import Document
 
 
-class Trip(Document):
+class TripMilestones(Document):
 	pass
-
-
-
-
-#######################################################

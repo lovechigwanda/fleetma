@@ -1,12 +1,42 @@
 [
  
+
  {
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "",
-  "modified": "2024-08-31 21:03:55.025346",
-  "name": "Offloading",
+  "modified": "2024-09-01 16:24:20.159007",
+  "name": "Loading",
+  "style": "Warning",
+  "workflow_state_name": "Loading"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-09-01 16:25:02.127967",
+  "name": "Return Empty",
   "style": "Info",
+  "workflow_state_name": "Return Empty"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-09-01 16:28:32.213489",
+  "name": "Completed",
+  "style": "Success",
+  "workflow_state_name": "Completed"
+ },
+ 
+
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2024-09-01 14:22:22.261943",
+  "name": "Offloading",
+  "style": "Primary",
   "workflow_state_name": "Offloading"
  },
  {
@@ -22,15 +52,6 @@
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "",
-  "modified": "2024-08-31 21:02:48.341222",
-  "name": "To Load",
-  "style": "Warning",
-  "workflow_state_name": "To Load"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "",
   "modified": "2024-08-31 21:01:11.536305",
   "name": "Trip Closed",
   "style": "Success",
@@ -40,18 +61,9 @@
   "docstatus": 0,
   "doctype": "Workflow State",
   "icon": "",
-  "modified": "2024-08-31 21:02:19.440407",
-  "name": "Completing",
-  "style": "Primary",
-  "workflow_state_name": "Completing"
- },
- {
-  "docstatus": 0,
-  "doctype": "Workflow State",
-  "icon": "",
-  "modified": "2024-08-31 21:02:34.864461",
+  "modified": "2024-09-01 14:22:11.707817",
   "name": "In transit",
-  "style": "Inverse",
+  "style": "Info",
   "workflow_state_name": "In transit"
  }
 ]

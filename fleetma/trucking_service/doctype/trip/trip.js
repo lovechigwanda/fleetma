@@ -94,39 +94,84 @@ function calculate_totals(frm) {
 }
 
 
-// CREATE SALES INVOICE
 
- frappe.ui.form.on('Trip', {
-    refresh: function(frm) {
-        // Add the "Create Invoice" button to the form
-        frm.add_custom_button(__('Create Invoice'), function() {
-            // Call the function to create an invoice when the button is clicked
-            create_invoice(frm);
-        });
+/////////////////////////////////////////////////////////////////////
+
+//UPDATE CURRENT MILESTONE
+
+frappe.ui.form.on('Trip', {
+    before_save: function(frm) {
+        var lastRow = frm.doc.tracking_update.slice(-1)[0];
+
+        if (lastRow) {
+            // Get the value from the last row's trip_milestone field
+            var lastValue = lastRow.trip_milestone;
+            var lastValue1 = lastRow.update_comment;
+            var lastValue2 = lastRow.update_date;
+
+            // Set the value in the parent doctype's current_trip_milestone field
+            frm.set_value('current_trip_milestone', lastValue);
+            frm.set_value('current_update_comment', lastValue1);
+            frm.set_value('updated_on', lastValue2);
+            frm.refresh();
+        }
     }
 });
 
-function create_invoice(frm) {
-    // Prepare the items array for the Sales Invoice by mapping fields from Revenue Charges
-    let items = frm.doc.revenue_charges.map(d => ({
-        item_code: d.charge, // Map the 'charge' field to 'item_code' in Sales Invoice Item
-        qty: d.quantity,     // Map the 'quantity' field to 'qty' in Sales Invoice Item
-        rate: d.amount       // Map the 'amount' field to 'rate' in Sales Invoice Item
-    }));
 
-    // Create a new Sales Invoice document
-    frappe.new_doc('Sales Invoice', {
-        customer: frm.doc.receivable_party, // Set the 'customer' field in Sales Invoice
-        items: items                        // Set the 'items' field with the mapped items
-    }).then(function(doc) {
-        // Add items to the Sales Invoice's child table
-        items.forEach(function(item) {
-            let child = frappe.model.add_child(doc, 'items');
-            frappe.model.set_value(child.doctype, child.name, 'item_code', item.item_code);
-            frappe.model.set_value(child.doctype, child.name, 'qty', item.qty);
-            frappe.model.set_value(child.doctype, child.name, 'rate', item.rate);
-        });
-        // Save the new Sales Invoice
-        frappe.set_route('Form', 'Sales Invoice', doc.name);
-    });
-}
+/////////////////////////////////////////////////////////////////////////////////
+
+frappe.ui.form.on('Trip', {
+    refresh: function(frm) {
+        frm.add_custom_button(__('Invoice'), function() {
+            frappe.db.get_list('Trip', {
+                fields: ['name']
+            }).then(trips => {
+                let tripPromises = trips.map(trip => {
+                    return frappe.db.get_doc('Trip', trip.name).then(tripDoc => {
+                        return tripDoc.revenue_charges.map(charge => ({
+                            trip_name: tripDoc.name,
+                            charge: charge.charge,
+                            quantity: charge.quantity,
+                            amount: charge.amount
+                        }));
+                    });
+                });
+
+                Promise.all(tripPromises).then(tripCharges => {
+                    let formatted_trips = [].concat(...tripCharges);
+
+                    let dialog = new frappe.ui.Dialog({
+                        title: 'Select Trips',
+                        size: 'large',
+                        fields: [
+                            {
+                                fieldtype: 'Table',
+                                fieldname: 'trips',
+                                label: 'Trips',
+                                fields: [
+                                    {fieldtype: 'Data', fieldname: 'trip_name', label: 'Trip Name', read_only: 1, in_list_view: 1, columns: 3},
+                                    {fieldtype: 'Data', fieldname: 'charge', label: 'Charge', read_only: 1, in_list_view: 1, columns: 4},
+                                    {fieldtype: 'Int', fieldname: 'quantity', label: 'Qty', read_only: 1, in_list_view: 1, columns: 1},
+                                    {fieldtype: 'Currency', fieldname: 'amount', label: 'Amount', read_only: 1, in_list_view: 1, columns: 2}
+                                ],
+                                data: formatted_trips,
+                                get_data: () => formatted_trips
+                            }
+                        ],
+                        primary_action_label: 'Create Invoice',
+                        primary_action: function(data) {
+                            console.log(data.trips);
+                            // Add your logic to create an invoice using the selected trips
+                            dialog.hide();
+                        }
+                    });
+                    dialog.show();
+                });
+            });
+        }, __('Create'));
+    }
+});
+
+
+
